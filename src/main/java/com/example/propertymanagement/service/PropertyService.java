@@ -17,4 +17,8 @@ public class PropertyService {
     public List<Property> getAllProperties(){
         return propertyRepository.findAll();
     }
+
+    public Property createProperty(Property property){
+        return propertyRepository.save(property);
+    }
 }

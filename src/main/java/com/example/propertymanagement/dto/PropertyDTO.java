@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class PropertyDTO {
 
+    private Long id;
     private String propertyName;
     private String description;
     private Double price;

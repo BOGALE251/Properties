@@ -16,6 +16,7 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String propertyName;
     private String description;
     private Double price;
     private String ownerName;
