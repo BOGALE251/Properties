@@ -1,6 +1,7 @@
 package com.example.propertymanagement.controller;
 
 
+import com.example.propertymanagement.converter.PropertyConverter;
 import com.example.propertymanagement.dto.PropertyDTO;
 import com.example.propertymanagement.entities.Property;
 import com.example.propertymanagement.repository.PropertyRepository;
@@ -23,31 +24,19 @@ public class PropertyController {
     @Autowired
     PropertyService propertyService;
 
-    private PropertyDTO mapToDTO(Property property){
-        PropertyDTO propertyDTO = new PropertyDTO();
-        BeanUtils.copyProperties(property,propertyDTO);
-        return  propertyDTO;
-    }
-
-    private Property mapToProperty(PropertyDTO propertyDTO){
-        Property property = new Property();
-        BeanUtils.copyProperties(propertyDTO,property);
-        return  property;
-    }
-
     @GetMapping("/getall")
     public List<PropertyDTO> getProperty() {
         return  propertyService.getAllProperties()
                 .stream()
-                .map(this::mapToDTO)
+                .map(PropertyConverter::mapToDTO)
                 .toList();
     }
 
     @PostMapping("/add")
     public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO propertyDTO){
-        Property property = mapToProperty(propertyDTO);
+        Property property = PropertyConverter.mapToProperty(propertyDTO);
         Property p = propertyService.createProperty(property);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(p.getId()).toUri();
-        return ResponseEntity.created(location).body(mapToDTO(p));
+        return ResponseEntity.created(location).body(PropertyConverter.mapToDTO(p));
     }
 }

@@ -1,16 +1,16 @@
 package com.example.propertymanagement.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "PROPERTY_TABLE")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Property {
 
     @Id
@@ -19,5 +19,4 @@ public class Property {
     private String propertyName;
     private String description;
     private Double price;
-    private String ownerName;
 }
